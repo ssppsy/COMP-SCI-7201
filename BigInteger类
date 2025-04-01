@@ -1,0 +1,110 @@
+BigInteger 是 Java 中用于处理大整数（超出 long 范围的整数）的类，属于 java.math 包。它支持 任意精度 的整数运算，适用于大数计算，如 加法、减法、乘法、除法、取模、位运算等。
+
+1. 创建 BigInteger
+
+方式 1：使用字符串
+import java.math.BigInteger;
+
+public class Main {
+    public static void main(String[] args) {
+        BigInteger num1 = new BigInteger("12345678901234567890");
+        System.out.println(num1); // 12345678901234567890
+    }
+}
+注意：
+不能用 BigInteger num = new BigInteger(12345);，因为 BigInteger 没有 int 或 long 直接构造方法。
+方式 2：使用整数
+BigInteger num2 = BigInteger.valueOf(12345);
+valueOf() 适用于小整数（long 范围内的数），避免 new BigInteger("12345") 的开销。
+方式 3：指定进制
+BigInteger num3 = new BigInteger("1010", 2); // 二进制 1010 = 十进制 10
+System.out.println(num3); // 10
+2. BigInteger 的基本运算
+
+加法
+BigInteger a = new BigInteger("12345678901234567890");
+BigInteger b = new BigInteger("98765432109876543210");
+BigInteger sum = a.add(b);
+System.out.println(sum); // 111111111011111111100
+减法
+BigInteger sub = a.subtract(b);
+System.out.println(sub); // -86419753208641975320
+乘法
+BigInteger mul = a.multiply(b);
+System.out.println(mul);
+除法
+BigInteger div = b.divide(a);
+System.out.println(div);
+取模
+BigInteger mod = b.mod(a);
+System.out.println(mod);
+3. 进制转换
+
+转换为字符串
+BigInteger num = new BigInteger("255");
+System.out.println(num.toString(2));  // 二进制: 11111111
+System.out.println(num.toString(16)); // 十六进制: ff
+转换回整数
+BigInteger num4 = new BigInteger("1010", 2); // 二进制 1010 转换为 BigInteger
+System.out.println(num4); // 10
+4. 比较大小
+
+使用 compareTo()
+BigInteger x = new BigInteger("100");
+BigInteger y = new BigInteger("200");
+
+System.out.println(x.compareTo(y)); // -1 (x < y)
+System.out.println(y.compareTo(x)); // 1 (y > x)
+System.out.println(x.compareTo(x)); // 0 (x == x)
+compareTo() 返回：
+负数（-1）：x < y
+0：x == y
+正数（1）：x > y
+5. 幂运算
+
+BigInteger base = new BigInteger("2");
+BigInteger power = base.pow(10); // 2^10
+System.out.println(power); // 1024
+6. 位运算
+
+BigInteger bi = new BigInteger("15"); // 1111
+System.out.println(bi.shiftLeft(2));  // 左移 2 位: 111100 (60)
+System.out.println(bi.shiftRight(2)); // 右移 2 位: 11 (3)
+7. BigInteger 求最大公约数（GCD）
+
+BigInteger num1 = new BigInteger("36");
+BigInteger num2 = new BigInteger("48");
+BigInteger gcd = num1.gcd(num2);
+System.out.println(gcd); // 12
+8. 随机大整数
+
+import java.math.BigInteger;
+import java.util.Random;
+
+public class Main {
+    public static void main(String[] args) {
+        BigInteger randomNum = new BigInteger(50, new Random()); // 生成 50 位随机整数
+        System.out.println(randomNum);
+    }
+}
+9. 判断是否是素数
+
+BigInteger num = new BigInteger("17");
+System.out.println(num.isProbablePrime(10)); // true
+isProbablePrime(int certainty)：
+返回 true（大概率是素数）
+返回 false（一定不是素数）
+总结
+
+操作	方法
+加法	a.add(b)
+减法	a.subtract(b)
+乘法	a.multiply(b)
+除法	a.divide(b)
+取模	a.mod(b)
+幂运算	a.pow(n)
+最大公约数	a.gcd(b)
+随机大整数	new BigInteger(bitLength, new Random())
+进制转换	new BigInteger(String, base)
+比较大小	a.compareTo(b)
+位运算	a.shiftLeft(n) / a.shiftRight(n)
