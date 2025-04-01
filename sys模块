@@ -1,0 +1,126 @@
+Python sys 模块
+sys 是 Python 的内置模块之一，提供了一些变量和函数，用于与 Python 解释器进行交互，例如 输入输出、命令行参数、系统路径、异常处理、Python 版本等。
+
+1. sys.stdin - 读取标准输入
+
+sys.stdin 允许你从标准输入（如键盘、重定向文件、管道）读取数据，通常用于处理大规模输入。
+
+示例：读取一行输入
+import sys
+
+line = sys.stdin.readline().strip()
+print("输入内容:", line)
+输入
+
+Hello, World!
+输出
+
+输入内容: Hello, World!
+示例：多行输入
+import sys
+
+for line in sys.stdin:
+    print("你输入的是:", line.strip())
+这个程序会 一直等待输入，直到 Ctrl+D（Linux/macOS）或 Ctrl+Z（Windows） 结束输入。
+2. sys.stdout - 输出到标准输出
+
+默认情况下，print() 其实是 sys.stdout.write() 的封装。
+
+import sys
+
+sys.stdout.write("Hello, World!\n")
+输出
+
+Hello, World!
+3. sys.stderr - 输出错误信息
+
+sys.stderr 用于输出错误消息，与 print() 不会混淆标准输出。
+
+import sys
+
+sys.stderr.write("这是一个错误消息！\n")
+适用于 日志、调试和异常处理。
+4. sys.argv - 命令行参数
+
+sys.argv 存储 命令行参数，索引如下：
+
+sys.argv[0] 是 脚本名称
+sys.argv[1:] 是 用户输入的参数
+示例
+import sys
+
+print("脚本名称:", sys.argv[0])
+if len(sys.argv) > 1:
+    print("参数:", sys.argv[1:])
+运行
+
+python script.py hello world 123
+输出
+
+脚本名称: script.py
+参数: ['hello', 'world', '123']
+5. sys.exit() - 退出程序
+
+sys.exit([status]) 终止程序：
+
+sys.exit(0) 表示 正常退出
+sys.exit(1) 表示 异常退出
+import sys
+
+print("程序开始")
+sys.exit(0)
+print("这行不会被执行")
+输出
+
+程序开始
+6. sys.path - Python 导入路径
+
+sys.path 是 Python 查找模块的路径 列表。
+
+import sys
+print(sys.path)
+你可以 sys.path.append("路径") 添加自定义路径。
+7. sys.version - 获取 Python 版本
+
+import sys
+
+print("Python 版本:", sys.version)
+print("Python 版本号:", sys.version_info)
+示例输出
+
+Python 版本: 3.10.5 (default, Jul 27 2022, 10:38:51)
+Python 版本号: sys.version_info(major=3, minor=10, micro=5, releaselevel='final', serial=0)
+8. sys.platform - 获取操作系统
+
+import sys
+
+print(sys.platform)
+输出
+
+Windows: win32
+macOS: darwin
+Linux: linux
+9. sys.getsizeof() - 获取对象占用内存大小
+
+import sys
+
+x = 100
+print(sys.getsizeof(x))  # 输出: 28 (字节)
+10. sys.setrecursionlimit() - 设置递归深度
+
+默认的递归深度是 1000，你可以修改它：
+
+import sys
+sys.setrecursionlimit(2000)
+总结
+方法	功能
+sys.stdin.readline()	读取标准输入
+sys.stdout.write()	输出到标准输出
+sys.stderr.write()	输出错误信息
+sys.argv	获取命令行参数
+sys.exit()	退出程序
+sys.path	Python 导入路径
+sys.version	获取 Python 版本
+sys.platform	获取操作系统
+sys.getsizeof()	获取对象大小
+sys.setrecursionlimit()	设置最大递归深度
